@@ -22,6 +22,10 @@ this.usingFlash = true;
 		t.canUseAudio = true;
 		t.usingFlash = false;
 	}
+	if (userAgent.toLowerCase().indexOf('iphone') != -1){
+		t.canUseAudio = true;
+		t.usingFlash = false;
+	}
 	if (userAgent.toLowerCase().indexOf('safari') != -1){
 		t.canUseAudio = true;
 		t.usingFlash = false;
@@ -33,6 +37,10 @@ this.usingFlash = true;
 	if (userAgent.toLowerCase().indexOf('android') != -1){
 		t.canUseAudio = false;
 		t.usingFlash = true;
+		if (userAgent.toLowerCase().indexOf('android 2.3') != -1 || userAgent.toLowerCase().indexOf('android 3') != -1 || userAgent.toLowerCase().indexOf('android 4') != -1){
+            t.canUseAudio = true;
+            t.usingFlash = false;
+		}
 	}
 	try {
     	if (EXAudioForceFlash == true){
@@ -65,7 +73,7 @@ FlashAudio = function(srcString){
 *
 */
 
-
+this.usingFlash = true;
 this.currentTime = 0;
 this.duration = NaN;
 this.paused = true;
@@ -247,8 +255,8 @@ dispatchEvent = function(type, object){
 	if (typeof listeners[type] != 'undefined' && listeners[type].length) {
 		var array = listeners[type].slice();
     	for (var i = 0, l; l = array[i]; i++) {
-    		//l(object);
-    		l.call(object);
+    		var timeStamp = new Date().getTime();
+    		l.apply(object, [{"type" : type, "timeStamp" : timeStamp}]);
    		 }
     	return true;           
 	}
