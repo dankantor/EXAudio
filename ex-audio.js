@@ -283,7 +283,7 @@ dispatchEvent = function(type, object){
 		div.innerHTML = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="1" height="1" id="exAudioFlash" type="application/x-shockwave-flash"><param name=movie value="'+swfUrl+'"><param name=swLiveConnect value="true"><param name=allowScriptAccess value="always"><param name=allowNetworking value="all"><param name=wMode value="transparent"><param name=flashVars value="&callback=EXAudioFlashCallback&src='+t.src+'&volume='+t.volume+'&debug='+debug+'"><embed flashVars="callback=EXAudioFlashCallback&src='+t.src+'&volume='+t.volume+'&debug='+debug+'" src="'+swfUrl+'" type="application/x-shockwave-flash" width="1" height="1" allowNetworking="all" allowScriptAccess="always" wMode="transparent" name="exAudioFlash"></embed></object>';
 		document.body.appendChild(div);
 	} else {
-		console.log('EXAudio Error: EXAudioSwfUrl cannot be undefined');
+	   throw new TypeError("EXAudioSwfUrl cannot be undefined");
 	}
 })(this);
 
